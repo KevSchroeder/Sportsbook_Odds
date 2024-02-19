@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def scrape_prizepicks_by_category(category):
     # Base URL of the website
-    base_url = "https://www.draftkings.com/"
+    base_url = "https://sportsbook.draftkings.com/"
 
     # Constructing the URL based on the category
     url = f"{base_url}leagues/basketball/ncaab"
@@ -17,13 +17,13 @@ def scrape_prizepicks_by_category(category):
         soup = BeautifulSoup(response.content, 'html.parser')
 
         # Extracting information based on the structure of the website
-        props = soup.find_all('div', class_='sportsbook-responsive-card-container__body')
+        props = soup.find_all('div', class_='sportsbook-league-page__body')
 
         # Printing out the results
         print(f"Props in the {category} category:")
         for prop in props:
-            prop_title = prop.find('div', class_='sportsbook-tabbed-subheader').text.strip()
-            prop_description = prop.find('div', class_='sportsbook-tabbed-subheader__tab').text.strip()
+            prop_title = prop.find('div', class_='sportsbook-table_body').text.strip()
+            prop_description = prop.find('div', class_='sportsbook-table__column-row').text.strip()
             print(f"Title: {prop_title}")
             print(f"Description: {prop_description}")
             print("----------------------------------------")
